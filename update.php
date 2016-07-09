@@ -5,7 +5,7 @@
 
   require('./config.php');
 
-  function write_log($string, $bool) {
+  function write_log($string) {
     $string = date('d-m-y H:i:s') . ' - ' . $string . "\n";
     file_put_contents('./log.txt', $string, FILE_APPEND | LOCK_EX);
   }
@@ -16,6 +16,7 @@
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
 
+    $result = array();
     $result[0] = curl_exec($ch);
     $result[1] = curl_error($ch);
 
