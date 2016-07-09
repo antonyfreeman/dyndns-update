@@ -52,7 +52,7 @@
     foreach ($array as &$record) {
       array_push($record, 'ip');
       $record['ip'] = file_get_contents('./dyndns_ip_cache.txt');
-      $result[0] = curl_get('https://dynamicdns.park-your-domain.com/update?' . http_build_query($record));
+      $result = curl_get('https://dynamicdns.park-your-domain.com/update?' . http_build_query($record));
       if (!$result[0]) {
         write_log('ERROR: Issue connecting to Namecheap\'s dyndns update server');
         write_log('ERROR: ' . $result[1]);
