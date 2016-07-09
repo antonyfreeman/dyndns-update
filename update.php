@@ -80,3 +80,5 @@
   }
 
   update($dyndns_records);
+
+  exit();
