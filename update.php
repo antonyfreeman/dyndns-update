@@ -68,7 +68,7 @@
           write_log('ERROR: ' . $value . ' (d: ' . $record['domain'] . ') (h: ' . $record['host'] . ')');
         }
       } else {
-        write_log('UPDATED' . $record['ip'] . ' (d: ' . $record['domain'] . ') (h: ' . $record['host'] . ')');
+        write_log('UPDATED: ' . $record['ip'] . ' (d: ' . $record['domain'] . ') (h: ' . $record['host'] . ')');
       }
     }
 
