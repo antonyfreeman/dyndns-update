@@ -49,7 +49,6 @@
     if (!update_check()) {
       return 0;
     }
-
     foreach ($array as &$record) {
       array_push($record, 'ip');
       $record['ip'] = file_get_contents('./dyndns_ip_cache.txt');
@@ -71,11 +70,9 @@
         write_log('UPDATED: ' . $record['ip'] . ' (d: ' . $record['domain'] . ') (h: ' . $record['host'] . ')');
       }
     }
-
     if (isset($errors)) {
       return 0;
     }
-
     return 1;
   }
 
