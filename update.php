@@ -50,6 +50,7 @@
         return 0;
       }
     }
+    write_log('An IP change has been detected');
     file_put_contents('./dyndns_ip_cache.txt', $result, LOCK_EX);
     return 1;
   }
