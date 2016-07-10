@@ -16,9 +16,11 @@
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
 
-    $result = array();
-    $result[0] = curl_exec($ch);
-    $result[1] = curl_error($ch);
+    $result = curl_exec($ch);
+
+    if (!$result) {
+      write_log('ERROR: (cURL) ' . curl_error($ch));
+    }
 
     curl_close($ch);
     return $result;
@@ -26,21 +28,20 @@
 
   function update_check() {
     $result = curl_get('https://api.ipify.org');
-    if (!$result[0]) {
+    if (!$result) {
       write_log('ERROR: Issue connecting to ipify\'s API server');
-      write_log('ERROR: ' . $result[1]);
       return 0;
     }
-    if (!filter_var($result[0], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+    if (!filter_var($result, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
       write_log('ERROR: A valid public IP address could not be retrieved');
       return 0;
     }
     if (file_exists('./dyndns_ip_cache.txt')) {
-      if (file_get_contents('./dyndns_ip_cache.txt') === $result[0]) {
+      if (file_get_contents('./dyndns_ip_cache.txt') === $result) {
         return 0;
       }
     }
-    file_put_contents('./dyndns_ip_cache.txt', $result[0], LOCK_EX);
+    file_put_contents('./dyndns_ip_cache.txt', $result, LOCK_EX);
     return 1;
   }
 
@@ -53,9 +54,8 @@
       array_push($record, 'ip');
       $record['ip'] = file_get_contents('./dyndns_ip_cache.txt');
       $result = curl_get('https://dynamicdns.park-your-domain.com/update?' . http_build_query($record));
-      if (!$result[0]) {
+      if (!$result) {
         write_log('ERROR: Issue connecting to Namecheap\'s dyndns update server');
-        write_log('ERROR: ' . $result[1]);
         return 0;
       }
 
@@ -78,6 +78,8 @@
 
     return 1;
   }
+
+
 
   update($dyndns_records);
 
