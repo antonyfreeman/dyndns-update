@@ -6,7 +6,6 @@
   * @version 1.0
   * @license MIT License
   *
-  *
   */
 
   if (php_sapi_name() !== 'cli') {
