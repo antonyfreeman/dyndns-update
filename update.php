@@ -4,7 +4,7 @@
   * PHP Version 5
   * @author Robert Jarsen
   * @version 1.0
-  * @license https://opensource.org/licenses/mit-license.php MIT License
+  * @license MIT License
   *
   *
   */
