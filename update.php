@@ -1,4 +1,12 @@
 <?php
+/**
+* PHP Namecheap DynDNS update script
+* PHP Version 5
+* @author Robert Jarsen
+* @version 1.0
+* @license https://opensource.org/licenses/mit-license.php MIT License
+*/
+
   if (php_sapi_name() !== 'cli') {
     exit('Not in CLI mode');
   }
