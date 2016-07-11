@@ -29,7 +29,10 @@ function curl_get($string) {
   $result = curl_exec($ch);
 
   if (!$result) {
-    write_log('ERROR: (cURL) ' . curl_error($ch));
+    write_log(
+      'ERROR: (cURL) ' .
+      curl_error($ch)
+    );
   }
 
   curl_close($ch);
