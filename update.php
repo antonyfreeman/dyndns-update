@@ -75,10 +75,18 @@ function update($array) {
     if (isset($parsed->ErrCount) && $parsed->ErrCount > 0) {
       $errors = (array) $parsed->errors;
       foreach ($errors as $key => $value) {
-        write_log('ERROR: ' . $value . ' (d: ' . $record['domain'] . ') (h: ' . $record['host'] . ')');
+        write_log(
+          'ERROR: ' . $value .
+          ' (d: ' . $record['domain'] .
+          ') (h: ' . $record['host'] . ')'
+        );
       }
     } else {
-      write_log('UPDATED: ' . $record['ip'] . ' (d: ' . $record['domain'] . ') (h: ' . $record['host'] . ')');
+      write_log(
+        'UPDATED: ' . $record['ip'] .
+        ' (d: ' . $record['domain'] .
+        ') (h: ' . $record['host'] . ')'
+      );
     }
   }
   if (isset($errors)) {
