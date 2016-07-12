@@ -46,6 +46,9 @@ function curl_get($string) {
   return $result;
 }
 
+/**
+ * @return bool
+ */
 function update_check() {
   $result = curl_get('https://api.ipify.org');
   if (!$result) {
@@ -66,6 +69,9 @@ function update_check() {
   return 1;
 }
 
+/**
+ * @return bool
+ */
 function update($array) {
   if (!update_check()) {
     return 0;
