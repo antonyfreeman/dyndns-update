@@ -15,11 +15,17 @@ if (php_sapi_name() !== 'cli') {
 
 require('./config.php');
 
+/**
+ * @param string $string
+ */
 function write_log($string) {
   $string = date('d-m-y H:i:s') . ' - ' . $string . "\n";
   file_put_contents('./log.txt', $string, FILE_APPEND | LOCK_EX);
 }
 
+/**
+ * @param string $string
+ */
 function curl_get($string) {
   $ch = curl_init($string);
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
