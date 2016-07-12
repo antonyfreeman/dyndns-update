@@ -53,20 +53,20 @@ function update_check() {
   $result = curl_get('https://api.ipify.org');
   if (!$result) {
     write_log('ERROR: Issue connecting to ipify\'s API server');
-    return 0;
+    return false;
   }
   if (!filter_var($result, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
     write_log('ERROR: A valid public IP address could not be retrieved');
-    return 0;
+    return true;
   }
   if (file_exists('./dyndns_ip_cache.txt')) {
     if (file_get_contents('./dyndns_ip_cache.txt') === $result) {
-      return 0;
+      return false;
     }
   }
   write_log('IP CHANGE: Your new public IP address -- ' . $result);
   file_put_contents('./dyndns_ip_cache.txt', $result, LOCK_EX);
-  return 1;
+  return true;
 }
 
 /**
@@ -75,7 +75,7 @@ function update_check() {
  */
 function update($array) {
   if (!update_check()) {
-    return 0;
+    return false;
   }
   foreach ($array as &$record) {
     array_push($record, 'ip');
@@ -83,7 +83,7 @@ function update($array) {
     $result = curl_get('https://dynamicdns.park-your-domain.com/update?' . http_build_query($record));
     if (!$result) {
       write_log('ERROR: Issue connecting to Namecheap\'s dyndns update server');
-      return 0;
+      return false;
     }
 
     $xml_data = "$result";
@@ -107,9 +107,9 @@ function update($array) {
     }
   }
   if (isset($errors)) {
-    return 0;
+    return false;
   }
-  return 1;
+  return true;
 }
 
 
