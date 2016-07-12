@@ -54,6 +54,7 @@ function update_check() {
       return 0;
     }
   }
+  write_log('IP CHANGE: Your new public IP address -- ' . $result);
   file_put_contents('./dyndns_ip_cache.txt', $result, LOCK_EX);
   return 1;
 }
