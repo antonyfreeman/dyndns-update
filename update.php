@@ -1,13 +1,13 @@
 <?php
 /**
-* PHP Namecheap DynDNS update script
-* PHP Version 5
-* @author Robert Jarsen
-* @version 1.0
-* @copyright 2016 Robert Jarsen
-* @license MIT License
-*
-*/
+ * PHP Namecheap DynDNS update script
+ * PHP Version 5
+ * @author Robert Jarsen
+ * @version 1.0
+ * @copyright 2016 Robert Jarsen
+ * @license MIT License
+ *
+ */
 
 if (php_sapi_name() !== 'cli') {
   exit('Not in CLI mode');
@@ -70,6 +70,7 @@ function update_check() {
 }
 
 /**
+ * @param array $array
  * @return bool
  */
 function update($array) {
