@@ -37,8 +37,9 @@ function curl_get($string) {
 
   if (!$result) {
     write_log(
-      'ERROR: (cURL) ' .
-      curl_error($ch)
+      ''
+      . 'ERROR: (cURL) '
+      . curl_error($ch)
     );
   }
 
