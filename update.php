@@ -93,16 +93,26 @@ function update($array) {
       $errors = (array) $parsed->errors;
       foreach ($errors as $key => $value) {
         write_log(
-          'ERROR: ' . $value .
-          ' (d: ' . $record['domain'] .
-          ') (h: ' . $record['host'] . ')'
+          ''
+          . 'ERROR: '
+          . $value
+          . ' (d: '
+          . $record['domain']
+          . ') (h: '
+          . $record['host']
+          . ')'
         );
       }
     } else {
       write_log(
-        'UPDATED: ' . $record['ip'] .
-        ' (d: ' . $record['domain'] .
-        ') (h: ' . $record['host'] . ')'
+        ''
+        . 'UPDATED: '
+        . $record['ip']
+        . ' (d: '
+        . $record['domain']
+        . ') (h: '
+        . $record['host']
+        . ')'
       );
     }
   }
