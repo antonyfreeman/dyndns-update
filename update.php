@@ -25,7 +25,7 @@ function write_log($string) {
 
 /**
  * @param string $string
- * @return string bool $results
+ * @return string|bool $results
  */
 function curl_get($string) {
   $ch = curl_init($string);
