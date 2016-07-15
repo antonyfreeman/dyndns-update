@@ -58,7 +58,7 @@ function update_check() {
   }
   if (!filter_var($result, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
     write_log('ERROR: A valid public IP address could not be retrieved');
-    return true;
+    return false;
   }
   if (file_exists('./dyndns_ip_cache.txt')) {
     if (file_get_contents('./dyndns_ip_cache.txt') === $result) {
