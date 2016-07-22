@@ -51,9 +51,27 @@ function curl_get($string) {
  * @return bool
  */
 function update_check() {
-  $result = curl_get('https://api.ipify.org');
+  if(strtoupper(substr(PHP_OS, 0, 5)) == "LINUX"){
+    if (`which dig`) {
+      $cmd = "dig +short myip.opendns.com @resolver1.opendns.com";
+      $result = rtrim(ltrim(shell_exec($cmd)));
+    } else { write_log('ERROR: Missing \"dig\" command.'); }
+    if(!$result) {
+      write_log('ERROR: Issue connecting to OpenDNS\'s myip server. Trying ipify.');
+    }
+  } 
+  if(!$result) {
+    if(function_exists('curl_version')){
+      $result = curl_get('https://api.ipify.org');
+      if(!$result) { 
+        write_log('ERROR: Issue retrieving IP from ipify\'s server.');
+      }
+    } else {
+      write_log('ERROR: Missing php_curl, cannot use ipify as backup lookup. ( Proceeding )');
+    }
+  }
   if (!$result) {
-    write_log('ERROR: Issue connecting to ipify\'s API server');
+    write_log('ERROR: Unable to discover WAN IP (Internet IP).');
     return false;
   }
   if (!filter_var($result, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
